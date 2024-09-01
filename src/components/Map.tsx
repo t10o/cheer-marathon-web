@@ -29,13 +29,18 @@ export const Map = ({ children, path }: Props) => {
 
   const VIEW_STYLE = {
     width: "100%",
-    aspectRatio: "16 / 9",
+    height: "100vh",
   };
 
   useEffect(() => {
     if (ref.current && !map) {
+      const center =
+        path && path.length > 0
+          ? { lat: path[path.length - 1].lat, lng: path[path.length - 1].lng }
+          : DEFAULT.CENTER;
+
       const option = {
-        center: DEFAULT.CENTER,
+        center: center,
         zoom: DEFAULT.ZOOM,
       };
 

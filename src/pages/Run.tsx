@@ -22,6 +22,10 @@ export const Run = () => {
       : [];
   }, [runData]);
 
+  if (path.length <= 0) {
+    return <div>ランニングが開始されたら画面が表示されます</div>;
+  }
+
   return (
     <Wrapper apiKey={import.meta.env.VITE_GOOGLE_MAP_API_KEY} render={render}>
       <Map path={path} />
