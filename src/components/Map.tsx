@@ -12,9 +12,10 @@ interface Props {
   children?:
     | ReactElement<google.maps.marker.AdvancedMarkerElement>[]
     | ReactElement<google.maps.marker.AdvancedMarkerElement>;
+  path?: { lat: number; lng: number }[];
 }
 
-export const Map = ({ children }: Props) => {
+export const Map = ({ children, path }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
 
@@ -42,9 +43,24 @@ export const Map = ({ children }: Props) => {
     }
   }, [ref, map]);
 
+  useEffect(() => {
+    if (path && map) {
+      const polyline = new window.google.maps.Polyline({
+        path: path,
+        geodesic: true,
+        strokeColor: "#FF0000",
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+      });
+
+      polyline.setMap(map);
+    }
+  }, [path, map]);
+
   return (
     <>
       <div ref={ref} style={VIEW_STYLE} />
+
       {Children.map(children, (child) => {
         if (isValidElement(child)) {
           return cloneElement(child, { map });
