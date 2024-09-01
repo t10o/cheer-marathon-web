@@ -29,7 +29,7 @@ export const Map = ({ children, path }: Props) => {
 
   const VIEW_STYLE = {
     width: "100%",
-    height: "100vh",
+    height: "100dvh",
   };
 
   useEffect(() => {
