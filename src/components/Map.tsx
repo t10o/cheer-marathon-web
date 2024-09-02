@@ -46,7 +46,7 @@ export const Map = ({ children, path }: Props) => {
 
       setMap(new window.google.maps.Map(ref.current, option));
     }
-  }, [ref, map]);
+  }, [ref, map, DEFAULT]);
 
   useEffect(() => {
     if (path && map) {
@@ -55,7 +55,7 @@ export const Map = ({ children, path }: Props) => {
         geodesic: true,
         strokeColor: "#FF0000",
         strokeOpacity: 1.0,
-        strokeWeight: 2,
+        strokeWeight: 10,
       });
 
       polyline.setMap(map);
