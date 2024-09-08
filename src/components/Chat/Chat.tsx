@@ -40,7 +40,7 @@ export const Chat = ({ isMobile, id, messages }: Props) => {
   );
 
   return isMobile ? (
-    <MobileChat chatList={Chats} onSubmit={handleSubmit} />
+    <MobileChat />
   ) : (
     <DesktopChat chatList={Chats} onSubmit={handleSubmit} />
   );
