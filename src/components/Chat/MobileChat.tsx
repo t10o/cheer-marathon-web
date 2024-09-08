@@ -1,15 +1,16 @@
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 
-import { Message } from "../../models/run.tsx";
 import { PullableModal } from "../common/PullableModal.tsx";
 
-interface Props {
-  chatList: ReactNode;
-  onSubmit: (message: Message) => void;
-}
+// interface Props {
+//   chatList: ReactNode;
+//   onSubmit: (message: Message) => void;
+// }
 
-export const MobileChat = ({ chatList, onSubmit }: Props) => {
+export const MobileChat = () => {
   const [open, setOpen] = useState(false);
+
+  setOpen(false);
 
   return <PullableModal isOpen={open} />;
 };
