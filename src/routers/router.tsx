@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
-import { Layout } from "../components/Layout.tsx";
+import { Layout } from "../components/common/Layout.tsx";
 import { Home } from "../pages/Home.tsx";
 import { Run } from "../pages/Run.tsx";
 
