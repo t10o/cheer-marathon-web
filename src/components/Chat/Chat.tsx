@@ -16,6 +16,11 @@ interface Props {
 
 export const Chat = ({ isMobile, id, messages }: Props) => {
   const handleSubmit = async (message: Message) => {
+    if (message.message === "") {
+      toast.error("メッセージが入力されていません");
+      return;
+    }
+
     const docRef = doc(db, "runs", id);
 
     await updateDoc(docRef, {
