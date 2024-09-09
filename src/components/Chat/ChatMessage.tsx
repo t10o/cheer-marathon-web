@@ -2,7 +2,7 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 
-import { Spacer } from "../common/Spacer.tsx";
+import { Spacer } from "@/components/common/Spacer";
 
 interface Props {
   name: string;

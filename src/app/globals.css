@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100vw;
+  height: 100vh;
+}
+
+html {
+  font-size: 16px;
+  color: #333;
+  word-spacing: 1px;
+  letter-spacing: 0.1rem;
+  line-height: 1.9;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: #fefefe;
+}
+
+body {
+  margin: 0;
+}
