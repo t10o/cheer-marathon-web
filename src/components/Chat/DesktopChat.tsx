@@ -3,10 +3,10 @@ import clsx from "clsx";
 import { Timestamp } from "firebase/firestore";
 import { ChangeEvent, FormEvent, ReactNode, useEffect, useState } from "react";
 
-import { Message } from "../../models/run.tsx";
-import { Button } from "../common/Button.tsx";
-import { Input } from "../common/Input.tsx";
-import { Spacer } from "../common/Spacer.tsx";
+import { Button } from "@/components/common/Button";
+import { Input } from "@/components/common/Input";
+import { Spacer } from "@/components/common/Spacer";
+import { Message } from "@/models/run";
 
 interface Props {
   chatList: ReactNode;
@@ -44,9 +44,9 @@ export const DesktopChat = ({ chatList, onSubmit }: Props) => {
         className={clsx("absolute", "bottom-0", "right-2", "left-2")}
         onSubmit={handleSubmit}
       >
-        <div className={clsx("w-full", "flex", "flex-grow")}>
+        <div className={clsx("w-full", "flex", "grow")}>
           <Input
-            className={clsx("flex-grow")}
+            className={clsx("grow")}
             value={messageState}
             onChange={handleChange}
           />

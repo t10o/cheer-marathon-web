@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { ButtonHTMLAttributes, forwardRef } from "react";
 
-import { Spacer } from "./Spacer.tsx";
+import { Spacer } from "@/components/common/Spacer";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
@@ -38,3 +38,5 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
     );
   },
 );
+
+Button.displayName = "Button";

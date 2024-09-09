@@ -1,12 +1,12 @@
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 
-import { db } from "../../libs/firebase.ts";
-import { Message } from "../../models/run.tsx";
-import { ChatList } from "./ChatList.tsx";
-import { ChatMessage } from "./ChatMessage.tsx";
-import { DesktopChat } from "./DesktopChat.tsx";
-import { MobileChat } from "./MobileChat.tsx";
+import { ChatList } from "@/components/Chat/ChatList";
+import { ChatMessage } from "@/components/Chat/ChatMessage";
+import { DesktopChat } from "@/components/Chat/DesktopChat";
+import { MobileChat } from "@/components/Chat/MobileChat";
+import { db } from "@/libs/firebase";
+import { Message } from "@/models/run";
 
 interface Props {
   isMobile: boolean;
