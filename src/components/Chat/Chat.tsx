@@ -32,7 +32,7 @@ export const Chat = ({ isMobile, id, messages }: Props) => {
 
   const Chats = (
     <ChatList>
-      {messages.map((message) => {
+      {messages?.map((message) => {
         return (
           <ChatMessage
             key={JSON.stringify(message)}
