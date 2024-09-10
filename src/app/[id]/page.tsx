@@ -54,7 +54,12 @@ export default function Run() {
     >
       <Map path={path} center={center} />
 
-      <Chat isMobile={isMobile} id={id!} messages={runData.messages} />
+      <Chat
+        isMobile={isMobile}
+        id={id!}
+        messages={runData.messages}
+        fcmToken={runData.fcmToken}
+      />
     </Split>
   );
 }

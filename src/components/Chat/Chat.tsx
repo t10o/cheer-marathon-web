@@ -1,6 +1,7 @@
 import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 
+import { sendPushNotification } from "@/actions/pushNotification";
 import { ChatList } from "@/components/Chat/ChatList";
 import { ChatMessage } from "@/components/Chat/ChatMessage";
 import { DesktopChat } from "@/components/Chat/DesktopChat";
@@ -12,9 +13,10 @@ interface Props {
   isMobile: boolean;
   id: string;
   messages: Message[];
+  fcmToken: string;
 }
 
-export const Chat = ({ isMobile, id, messages }: Props) => {
+export const Chat = ({ isMobile, id, messages, fcmToken }: Props) => {
   const handleSubmit = async (message: Message) => {
     if (message.message === "") {
       toast.error("メッセージが入力されていません");
@@ -26,6 +28,8 @@ export const Chat = ({ isMobile, id, messages }: Props) => {
     await updateDoc(docRef, {
       ["messages"]: arrayUnion(message),
     });
+
+    await sendPushNotification(fcmToken, "hoge", message.message);
 
     toast.success("メッセージを送信しました");
   };

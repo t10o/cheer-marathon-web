@@ -3,6 +3,7 @@ import { Timestamp } from "firebase/firestore";
 export interface Run {
   id: string;
   photos: Photo[];
+  fcmToken: string;
   route: Location[];
   messages: Message[];
   startTime: string;
