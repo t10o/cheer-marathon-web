@@ -20,7 +20,7 @@ export const useRunData = (id: string) => {
         }
       },
       (error) => {
-        console.error("onSnapshot エラー:", error);
+        throw new Error(error.message);
       },
     );
 

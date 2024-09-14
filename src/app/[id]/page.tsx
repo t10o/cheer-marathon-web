@@ -11,7 +11,7 @@ import { Map } from "@/components/Map/Map";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useRunData } from "@/hooks/useRunData";
 
-export default function Run() {
+export default function RunPage() {
   const { id } = useParams<{ id: string }>();
 
   const { runData } = useRunData(id!);

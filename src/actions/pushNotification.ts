@@ -12,12 +12,7 @@ export async function sendPushNotification(
     token: fcmToken,
   };
 
-  messaging
-    .send(notificationMessage)
-    .then((response) => {
-      console.log("Successfully sent message:", response);
-    })
-    .catch((error) => {
-      console.log("Error sending message:", error);
-    });
+  messaging.send(notificationMessage).catch((error) => {
+    throw new Error(error);
+  });
 }
