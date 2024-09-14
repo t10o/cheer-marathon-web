@@ -24,6 +24,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
           "font-bold",
           "bg-amber-500",
           "text-cyan-50",
+          props.disabled && ["opacity-50", "cursor-not-allowed"],
         )}
         {...props}
       >

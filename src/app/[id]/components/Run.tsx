@@ -2,12 +2,13 @@
 
 import { useJsApiLoader } from "@react-google-maps/api";
 import clsx from "clsx";
-import { useParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useParams } from "next/navigation";
+import { useState } from "react";
 import Split from "react-split";
 
 import { Chat } from "@/app/[id]/components/Chat/Chat";
 import { Map } from "@/app/[id]/components/Map";
+import { UsernameModal } from "@/app/[id]/components/UsernameModal";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useRunData } from "@/hooks/useRunData";
 import { getStorageUsername } from "@/utils/localStorage";
@@ -23,15 +24,13 @@ export const Run = () => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY!,
   });
 
-  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
 
   const username = getStorageUsername();
 
-  useEffect(() => {
-    if (!username) {
-      router.push("/user");
-    }
-  }, [router, username]);
+  if (!username && !isOpen) {
+    setIsOpen(true);
+  }
 
   const path = runData
     ? runData.route.map((route) => {
@@ -46,6 +45,10 @@ export const Run = () => {
   const center = {
     lat: runData.route[runData.route.length - 1].latitude,
     lng: runData.route[runData.route.length - 1].longitude,
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
   };
 
   if (!isLoaded) {
@@ -70,8 +73,10 @@ export const Run = () => {
         id={id!}
         messages={runData.messages}
         fcmToken={runData.fcmToken}
-        username={username!}
+        username={username}
       />
+
+      <UsernameModal isOpen={isOpen} onClose={handleClose} />
     </Split>
   );
 };

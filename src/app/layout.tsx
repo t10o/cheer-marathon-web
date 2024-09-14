@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${noto.className} antialiased`}>
+      <body className={`${noto.className} antialiased　__body`}>
         <Analytics />
 
         <SpeedInsights />

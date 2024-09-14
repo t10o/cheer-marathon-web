@@ -9,7 +9,7 @@ import { Spacer } from "@/components/Spacer";
 import { Message } from "@/models/run";
 
 interface Props {
-  username: string;
+  username: string | null;
   chatList: ReactNode;
   onSubmit: (message: Message) => void;
 }
@@ -25,7 +25,7 @@ export const DesktopChat = ({ username, chatList, onSubmit }: Props) => {
     event.preventDefault();
 
     const message = {
-      name: username,
+      name: username!,
       message: messageState,
       timestamp: Timestamp.fromDate(new Date()),
     };
@@ -59,7 +59,12 @@ export const DesktopChat = ({ username, chatList, onSubmit }: Props) => {
 
           <Spacer size="small" />
 
-          <Button type="submit" label="送信" icon={faPaperPlane} />
+          <Button
+            type="submit"
+            disabled={!username}
+            label="送信"
+            icon={faPaperPlane}
+          />
         </div>
       </form>
     </div>

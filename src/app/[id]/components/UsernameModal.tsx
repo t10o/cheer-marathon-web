@@ -1,27 +1,19 @@
-"use client";
-
 import clsx from "clsx";
-import { useRouter } from "next/navigation";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
-import { useIsMobile } from "@/hooks/useIsMobile";
-import { getStorageUsername, setStorageUsername } from "@/utils/localStorage";
+import { Modal } from "@/components/Modal";
+import { setStorageUsername } from "@/utils/localStorage";
 
-export const User = () => {
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export const UsernameModal = ({ isOpen, onClose }: Props) => {
   const [username, setUsername] = useState("");
-  const { isMobile } = useIsMobile();
-  const router = useRouter();
-
-  useEffect(() => {
-    const enteredUsername = getStorageUsername();
-
-    if (enteredUsername) {
-      setUsername(enteredUsername);
-    }
-  }, []);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -30,13 +22,32 @@ export const User = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (!username) {
+      toast.error("ユーザー名を入力してください");
+      return;
+    }
+
     setStorageUsername(username);
     toast.success("ユーザー名を設定しました");
-    router.back();
+    onClose();
   };
 
   return (
-    <div className={clsx("max-w-96", isMobile ? "mx-4" : "m-auto")}>
+    <Modal
+      isOpen={isOpen}
+      style={{
+        content: {
+          width: "fit-content",
+          height: "fit-content",
+          top: "50%",
+          left: "50%",
+          right: "auto",
+          bottom: "auto",
+          marginRight: "-50%",
+          transform: "translate(-50%, -50%)",
+        },
+      }}
+    >
       <form
         className={clsx("flex", "flex-col", "gap-4")}
         onSubmit={handleSubmit}
@@ -53,6 +64,6 @@ export const User = () => {
 
         <Button className={clsx("w-full")} label="登録" type="submit" />
       </form>
-    </div>
+    </Modal>
   );
 };

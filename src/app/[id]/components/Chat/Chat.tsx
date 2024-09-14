@@ -14,7 +14,7 @@ interface Props {
   id: string;
   messages: Message[];
   fcmToken: string;
-  username: string;
+  username: string | null;
 }
 
 export const Chat = ({ isMobile, id, messages, fcmToken, username }: Props) => {
