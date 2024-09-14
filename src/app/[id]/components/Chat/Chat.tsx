@@ -2,10 +2,10 @@ import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 
 import { sendPushNotification } from "@/actions/pushNotification";
-import { ChatList } from "@/components/Chat/ChatList";
-import { ChatMessage } from "@/components/Chat/ChatMessage";
-import { DesktopChat } from "@/components/Chat/DesktopChat";
-import { MobileChat } from "@/components/Chat/MobileChat";
+import { ChatList } from "@/app/[id]/components/Chat/ChatList";
+import { ChatMessage } from "@/app/[id]/components/Chat/ChatMessage";
+import { DesktopChat } from "@/app/[id]/components/Chat/DesktopChat";
+import { MobileChat } from "@/app/[id]/components/Chat/MobileChat";
 import { db } from "@/libs/firebase";
 import { Message } from "@/models/run";
 
