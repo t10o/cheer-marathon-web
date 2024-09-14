@@ -14,12 +14,18 @@ interface Props {
   id: string;
   messages: Message[];
   fcmToken: string;
+  username: string;
 }
 
-export const Chat = ({ isMobile, id, messages, fcmToken }: Props) => {
+export const Chat = ({ isMobile, id, messages, fcmToken, username }: Props) => {
   const handleSubmit = async (message: Message) => {
-    if (message.message === "") {
+    if (!message.message) {
       toast.error("メッセージが入力されていません");
+      return;
+    }
+
+    if (!message.name) {
+      toast.error("ユーザー名が入力されていません。リロードしてください。");
       return;
     }
 
@@ -29,7 +35,7 @@ export const Chat = ({ isMobile, id, messages, fcmToken }: Props) => {
       ["messages"]: arrayUnion(message),
     });
 
-    await sendPushNotification(fcmToken, "hoge", message.message);
+    await sendPushNotification(fcmToken, message.name, message.message);
 
     toast.success("メッセージを送信しました");
   };
@@ -51,6 +57,6 @@ export const Chat = ({ isMobile, id, messages, fcmToken }: Props) => {
   return isMobile ? (
     <MobileChat />
   ) : (
-    <DesktopChat chatList={Chats} onSubmit={handleSubmit} />
+    <DesktopChat username={username} chatList={Chats} onSubmit={handleSubmit} />
   );
 };

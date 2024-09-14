@@ -2,13 +2,15 @@
 
 import { useJsApiLoader } from "@react-google-maps/api";
 import clsx from "clsx";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 import Split from "react-split";
 
 import { Chat } from "@/app/[id]/components/Chat/Chat";
 import { Map } from "@/app/[id]/components/Map";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useRunData } from "@/hooks/useRunData";
+import { getStorageUsername } from "@/utils/localStorage";
 
 export const Run = () => {
   const { id } = useParams<{ id: string }>();
@@ -21,8 +23,18 @@ export const Run = () => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY!,
   });
 
+  const router = useRouter();
+
+  const username = getStorageUsername();
+
+  useEffect(() => {
+    if (!username) {
+      router.push("/user");
+    }
+  }, [router, username]);
+
   const path = runData
-    ? runData.route.map((route: { latitude: number; longitude: number }) => {
+    ? runData.route.map((route) => {
         return { lat: route.latitude, lng: route.longitude };
       })
     : [];
@@ -58,6 +70,7 @@ export const Run = () => {
         id={id!}
         messages={runData.messages}
         fcmToken={runData.fcmToken}
+        username={username!}
       />
     </Split>
   );

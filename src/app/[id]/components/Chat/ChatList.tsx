@@ -39,7 +39,7 @@ export const ChatList = ({ children }: Props) => {
         "flex",
         "flex-col",
         "gap-4",
-        "h-[calc(100dvh_-_96px)]",
+        "h-[calc(100dvh_-_56px_-_96px)]",
         "overflow-auto",
         "mb-4",
       )}

@@ -5,19 +5,16 @@ import "react-toastify/dist/ReactToastify.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Noto_Sans_JP } from "next/font/google";
 import { ReactNode } from "react";
 import { ToastContainer } from "react-toastify";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+import { AppBar } from "@/components/AppBar";
+
+const noto = Noto_Sans_JP({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-noto-sans-jp",
 });
 
 export const metadata: Metadata = {
@@ -31,15 +28,15 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="ja">
+      <body className={`${noto.className} antialiased`}>
         <Analytics />
 
         <SpeedInsights />
 
         <ToastContainer />
+
+        <AppBar />
 
         <main>{children}</main>
       </body>

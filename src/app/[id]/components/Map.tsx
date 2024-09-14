@@ -9,7 +9,7 @@ interface Props {
 export const Map = ({ path, center }: Props) => {
   const containerStyle = {
     width: "100%",
-    height: "100dvh",
+    height: "calc(100dvh - 56px)",
   };
 
   const polyline = useMemo(() => {

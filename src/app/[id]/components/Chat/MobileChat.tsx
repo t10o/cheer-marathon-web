@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { PullableModal } from "@/components/common/PullableModal";
+import { PullableModal } from "@/components/PullableModal";
 
 // interface Props {
 //   chatList: ReactNode;

@@ -1,22 +1,21 @@
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import clsx from "clsx";
 import { Timestamp } from "firebase/firestore";
-import { ChangeEvent, FormEvent, ReactNode, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, ReactNode, useState } from "react";
 
-import { Button } from "@/components/common/Button";
-import { Input } from "@/components/common/Input";
-import { Spacer } from "@/components/common/Spacer";
+import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { Spacer } from "@/components/Spacer";
 import { Message } from "@/models/run";
 
 interface Props {
+  username: string;
   chatList: ReactNode;
   onSubmit: (message: Message) => void;
 }
 
-export const DesktopChat = ({ chatList, onSubmit }: Props) => {
+export const DesktopChat = ({ username, chatList, onSubmit }: Props) => {
   const [messageState, setMessage] = useState("");
-
-  useEffect(() => {}, [chatList]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
@@ -26,7 +25,7 @@ export const DesktopChat = ({ chatList, onSubmit }: Props) => {
     event.preventDefault();
 
     const message = {
-      name: "hoge",
+      name: username,
       message: messageState,
       timestamp: Timestamp.fromDate(new Date()),
     };
@@ -37,7 +36,14 @@ export const DesktopChat = ({ chatList, onSubmit }: Props) => {
   };
 
   return (
-    <div className={clsx("relative", "p-4", "pr-0", "h-[calc(100dvh_-_16px)]")}>
+    <div
+      className={clsx(
+        "relative",
+        "p-4",
+        "pr-0",
+        "h-[calc(100dvh_-_16px_-_56px)]",
+      )}
+    >
       {chatList}
 
       <form
