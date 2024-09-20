@@ -1,5 +1,7 @@
 "use server";
 
+import { AndroidConfig } from "firebase-admin/messaging";
+
 import { messaging } from "@/libs/firebaseAdmin";
 
 export async function sendPushNotification(
@@ -7,9 +9,14 @@ export async function sendPushNotification(
   name: string,
   message: string,
 ) {
+  const androidConfig: AndroidConfig = {
+    priority: "high",
+  };
+
   const notificationMessage = {
     notification: { title: name, body: message },
     token: fcmToken,
+    android: androidConfig,
   };
 
   messaging.send(notificationMessage).catch((error) => {
