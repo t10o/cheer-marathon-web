@@ -11,6 +11,10 @@ export async function sendPushNotification(
 ) {
   const androidConfig: AndroidConfig = {
     priority: "high",
+    notification: {
+      channelId: "cheer",
+      priority: "max",
+    },
   };
 
   const notificationMessage = {
