@@ -13,7 +13,6 @@ export async function sendPushNotification(
     priority: "high",
     notification: {
       channelId: "cheer",
-      priority: "max",
     },
   };
 
