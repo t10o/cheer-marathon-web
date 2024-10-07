@@ -63,9 +63,9 @@ export const Chat = ({ id, isMobile, messages, fcmToken, username }: Props) => {
     <div
       className={clsx(
         isMobile ? "h-3/5" : "h-full",
+        isMobile ? "w-full" : "min-w-96",
         "p-4",
         "relative",
-        "min-w-96",
         "pb-20",
       )}
     >

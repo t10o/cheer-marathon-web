@@ -58,7 +58,14 @@ export const Run = () => {
   }
 
   return (
-    <div className={clsx("flex", "h-full", isMobile ? "flex-col" : "flex-row")}>
+    <div
+      className={clsx(
+        "flex",
+        "h-full",
+        "w-full",
+        isMobile ? "flex-col" : "flex-row",
+      )}
+    >
       <Map
         containerStyle={{ width: "100%", height: isMobile ? "40%" : "100%" }}
         path={path}
