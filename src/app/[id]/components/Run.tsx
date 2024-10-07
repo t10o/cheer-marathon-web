@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Chat } from "@/app/[id]/components/Chat";
 import { UsernameModal } from "@/app/[id]/components/UsernameModal";
 import { Map } from "@/components/Map";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import { useRunData } from "@/hooks/useRunData";
 import { getStorageUsername } from "@/utils/localStorage";
 
@@ -19,7 +20,11 @@ export const Run = () => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY!,
+    region: "JP",
+    language: "ja",
   });
+
+  const { isMobile } = useIsMobile();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -53,15 +58,16 @@ export const Run = () => {
   }
 
   return (
-    <div className={clsx("flex", "h-full")}>
+    <div className={clsx("flex", "h-full", isMobile ? "flex-col" : "flex-row")}>
       <Map
-        containerStyle={{ width: "100%", height: "100%" }}
+        containerStyle={{ width: "100%", height: isMobile ? "40%" : "100%" }}
         path={path}
         center={center}
       />
 
       <Chat
         id={id!}
+        isMobile={isMobile}
         messages={runData.messages}
         fcmToken={runData.fcmToken}
         username={username}

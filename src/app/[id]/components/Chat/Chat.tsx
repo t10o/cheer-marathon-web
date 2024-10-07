@@ -14,12 +14,13 @@ import { Message } from "@/models/run";
 
 interface Props {
   id: string;
+  isMobile: boolean;
   messages: Message[];
   fcmToken: string;
   username: string | null;
 }
 
-export const Chat = ({ id, messages, fcmToken, username }: Props) => {
+export const Chat = ({ id, isMobile, messages, fcmToken, username }: Props) => {
   const [messageState, setMessage] = useState("");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -41,8 +42,6 @@ export const Chat = ({ id, messages, fcmToken, username }: Props) => {
       return;
     }
 
-    setMessage("");
-
     const docRef = doc(db, "runs", id);
 
     await updateDoc(docRef, {
@@ -52,6 +51,8 @@ export const Chat = ({ id, messages, fcmToken, username }: Props) => {
     await sendPushNotification(fcmToken, message.name, message.message);
 
     toast.success("メッセージを送信しました");
+
+    setMessage("");
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +60,15 @@ export const Chat = ({ id, messages, fcmToken, username }: Props) => {
   };
 
   return (
-    <div className={clsx("h-full", "p-4", "relative", "min-w-96", "pb-20")}>
+    <div
+      className={clsx(
+        isMobile ? "h-3/5" : "h-full",
+        "p-4",
+        "relative",
+        "min-w-96",
+        "pb-20",
+      )}
+    >
       <ChatList>
         {messages?.map((message) => {
           return (
