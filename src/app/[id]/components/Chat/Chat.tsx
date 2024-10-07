@@ -5,8 +5,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 
 import { sendPushNotification } from "@/actions/pushNotification";
-import { ChatList } from "@/app/[id]/components/Chat/ChatList";
-import { ChatMessage } from "@/app/[id]/components/Chat/ChatMessage";
+import { ChatList, ChatMessage } from "@/app/[id]/components/Chat";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { Spacer } from "@/components/Spacer";

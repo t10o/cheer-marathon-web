@@ -5,9 +5,9 @@ import clsx from "clsx";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
-import { Chat } from "@/app/[id]/components/Chat/Chat";
-import { Map } from "@/app/[id]/components/Map";
+import { Chat } from "@/app/[id]/components/Chat";
 import { UsernameModal } from "@/app/[id]/components/UsernameModal";
+import { Map } from "@/components/Map";
 import { useRunData } from "@/hooks/useRunData";
 import { getStorageUsername } from "@/utils/localStorage";
 
