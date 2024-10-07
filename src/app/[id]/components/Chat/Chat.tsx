@@ -1,24 +1,37 @@
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import clsx from "clsx";
+import { arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 
 import { sendPushNotification } from "@/actions/pushNotification";
 import { ChatList } from "@/app/[id]/components/Chat/ChatList";
 import { ChatMessage } from "@/app/[id]/components/Chat/ChatMessage";
-import { DesktopChat } from "@/app/[id]/components/Chat/DesktopChat";
-import { MobileChat } from "@/app/[id]/components/Chat/MobileChat";
+import { Button } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { Spacer } from "@/components/Spacer";
 import { db } from "@/libs/firebase";
 import { Message } from "@/models/run";
 
 interface Props {
-  isMobile: boolean;
   id: string;
   messages: Message[];
   fcmToken: string;
   username: string | null;
 }
 
-export const Chat = ({ isMobile, id, messages, fcmToken, username }: Props) => {
-  const handleSubmit = async (message: Message) => {
+export const Chat = ({ id, messages, fcmToken, username }: Props) => {
+  const [messageState, setMessage] = useState("");
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const message = {
+      name: username!,
+      message: messageState,
+      timestamp: Timestamp.fromDate(new Date()),
+    };
+
     if (!message.message) {
       toast.error("メッセージが入力されていません");
       return;
@@ -28,6 +41,8 @@ export const Chat = ({ isMobile, id, messages, fcmToken, username }: Props) => {
       toast.error("ユーザー名が入力されていません。リロードしてください。");
       return;
     }
+
+    setMessage("");
 
     const docRef = doc(db, "runs", id);
 
@@ -40,23 +55,45 @@ export const Chat = ({ isMobile, id, messages, fcmToken, username }: Props) => {
     toast.success("メッセージを送信しました");
   };
 
-  const Chats = (
-    <ChatList>
-      {messages?.map((message) => {
-        return (
-          <ChatMessage
-            key={JSON.stringify(message)}
-            name={message.name}
-            message={message.message}
-          />
-        );
-      })}
-    </ChatList>
-  );
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setMessage(event.target.value);
+  };
 
-  return isMobile ? (
-    <MobileChat />
-  ) : (
-    <DesktopChat username={username} chatList={Chats} onSubmit={handleSubmit} />
+  return (
+    <div className={clsx("h-full", "p-4", "relative", "min-w-96", "pb-20")}>
+      <ChatList>
+        {messages?.map((message) => {
+          return (
+            <ChatMessage
+              key={JSON.stringify(message)}
+              name={message.name}
+              message={message.message}
+            />
+          );
+        })}
+      </ChatList>
+
+      <form
+        className={clsx("absolute", "bottom-4", "right-4", "left-4")}
+        onSubmit={handleSubmit}
+      >
+        <div className={clsx("w-full", "flex", "grow")}>
+          <Input
+            className={clsx("grow")}
+            value={messageState}
+            onChange={handleChange}
+          />
+
+          <Spacer size="small" />
+
+          <Button
+            type="submit"
+            disabled={!username}
+            label="送信"
+            icon={faPaperPlane}
+          />
+        </div>
+      </form>
+    </div>
   );
 };

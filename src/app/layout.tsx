@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import clsx from "clsx";
 import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import { ReactNode } from "react";
@@ -29,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${noto.className} antialiased　__body`}>
+      <body className={`${noto.className} antialiased`}>
         <Analytics />
 
         <SpeedInsights />
@@ -38,7 +39,9 @@ export default function RootLayout({
 
         <AppBar />
 
-        <main>{children}</main>
+        <main className={clsx("w-full", "h-[calc(100dvh_-_56px)]")}>
+          {children}
+        </main>
       </body>
     </html>
   );

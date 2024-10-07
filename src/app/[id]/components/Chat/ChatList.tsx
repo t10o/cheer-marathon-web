@@ -35,14 +35,7 @@ export const ChatList = ({ children }: Props) => {
   return (
     <div
       ref={ref}
-      className={clsx(
-        "flex",
-        "flex-col",
-        "gap-4",
-        "h-[calc(100dvh_-_56px_-_96px)]",
-        "overflow-auto",
-        "mb-4",
-      )}
+      className={clsx("flex", "flex-col", "gap-4", "h-full", "overflow-scroll")}
       onScroll={handleScroll}
     >
       {children}

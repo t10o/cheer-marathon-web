@@ -1,17 +1,13 @@
 import { GoogleMap, PolylineF } from "@react-google-maps/api";
-import { useMemo } from "react";
+import { CSSProperties, useMemo } from "react";
 
 interface Props {
+  containerStyle: CSSProperties;
   path: google.maps.LatLngLiteral[];
   center: google.maps.LatLngLiteral;
 }
 
-export const Map = ({ path, center }: Props) => {
-  const containerStyle = {
-    width: "100%",
-    height: "calc(100dvh - 56px)",
-  };
-
+export const Map = ({ containerStyle, path, center }: Props) => {
   const polyline = useMemo(() => {
     return (
       <PolylineF
