@@ -29,7 +29,7 @@ export const Run = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const [username, _] = useLocalStorage(USERNAME_KEY, "");
+  const [username] = useLocalStorage(USERNAME_KEY, "");
 
   if (!username && !isOpen) {
     setIsOpen(true);

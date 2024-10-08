@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 
 import { Button } from "@/components/Button";
@@ -17,22 +17,28 @@ interface Props {
 
 export const UsernameModal = ({ isOpen, canClose = false, onClose }: Props) => {
   const [username, setUsername] = useLocalStorage(USERNAME_KEY, "");
+  const [enteredUsername, setEnteredUsername] = useState(username);
+  const [isUsernameUpdated, setUsernameUpdated] = useState(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUsername(event.target.value);
+    setEnteredUsername(event.target.value);
+  };
+
+  const handleReloadClick = () => {
+    window.location.reload();
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!canClose && !username) {
+    if (!canClose && !enteredUsername) {
       toast.error("ユーザー名を入力してください");
       return;
     }
 
-    setUsername(username);
-    toast.success("ユーザー名を設定しました");
-    onClose();
+    setUsername(enteredUsername);
+
+    setUsernameUpdated(true);
   };
 
   return (
@@ -52,42 +58,53 @@ export const UsernameModal = ({ isOpen, canClose = false, onClose }: Props) => {
       }}
       shouldCloseOnOverlayClick={canClose}
     >
-      <form
-        className={clsx("flex", "flex-col", "gap-4")}
-        onSubmit={handleSubmit}
-      >
-        <div>
-          <label id="username">ユーザー名</label>
-          <Input
-            id="username"
-            className={clsx("w-full", "max-w-60")}
-            value={username || ""}
-            onChange={handleChange}
-          />
+      {isUsernameUpdated ? (
+        <div className={clsx("flex", "flex-col")}>
+          <p>ユーザー名を変更しました。</p>
+          <p>リロードしてください。</p>
+
+          <Spacer tag="div" size="small" />
+
+          <Button label="リロード" onClick={handleReloadClick} />
         </div>
+      ) : (
+        <form
+          className={clsx("flex", "flex-col", "gap-4")}
+          onSubmit={handleSubmit}
+        >
+          <div>
+            <label id="username">ユーザー名</label>
+            <Input
+              id="username"
+              className={clsx("w-full", "max-w-60")}
+              value={enteredUsername}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div className={clsx("flex")}>
-          {canClose && (
-            <>
-              <Button
-                className={clsx("min-w-28")}
-                variant="outlined"
-                label="閉じる"
-                type="button"
-                onClick={onClose}
-              />
+          <div className={clsx("flex")}>
+            {canClose && (
+              <>
+                <Button
+                  className={clsx("min-w-28")}
+                  variant="outlined"
+                  label="閉じる"
+                  type="button"
+                  onClick={onClose}
+                />
 
-              <Spacer size="small" />
-            </>
-          )}
+                <Spacer size="small" />
+              </>
+            )}
 
-          <Button
-            className={clsx(canClose ? "min-w-28" : "w-full")}
-            label="登録"
-            type="submit"
-          />
-        </div>
-      </form>
+            <Button
+              className={clsx(canClose ? "min-w-28" : "w-full")}
+              label="登録"
+              type="submit"
+            />
+          </div>
+        </form>
+      )}
     </Modal>
   );
 };
