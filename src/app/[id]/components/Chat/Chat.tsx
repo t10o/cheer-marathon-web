@@ -1,4 +1,4 @@
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import clsx from "clsx";
 import { arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
 import { ChangeEvent, FormEvent, useState } from "react";
@@ -85,9 +85,9 @@ export const Chat = ({ id, isMobile, messages, fcmToken, username }: Props) => {
         className={clsx("absolute", "bottom-4", "right-4", "left-4")}
         onSubmit={handleSubmit}
       >
-        <div className={clsx("w-full", "flex", "grow")}>
+        <div className={clsx("w-full", "flex")}>
           <Input
-            className={clsx("grow")}
+            className={clsx("grow", "min-w-0")}
             value={messageState}
             onChange={handleChange}
           />
@@ -95,10 +95,11 @@ export const Chat = ({ id, isMobile, messages, fcmToken, username }: Props) => {
           <Spacer size="small" />
 
           <Button
+            className={clsx("min-w-24")}
             type="submit"
             disabled={!username}
             label="送信"
-            icon={faPaperPlane}
+            icon={faRocket}
           />
         </div>
       </form>
