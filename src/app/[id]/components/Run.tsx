@@ -8,9 +8,10 @@ import { useState } from "react";
 import { Chat } from "@/app/[id]/components/Chat";
 import { UsernameModal } from "@/app/[id]/components/UsernameModal";
 import { Map } from "@/components/Map";
+import { USERNAME_KEY } from "@/constants";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useRunData } from "@/hooks/useRunData";
-import { getStorageUsername } from "@/utils/localStorage";
 
 export const Run = () => {
   const { id } = useParams<{ id: string }>();
@@ -28,7 +29,7 @@ export const Run = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const username = getStorageUsername();
+  const [username, _] = useLocalStorage(USERNAME_KEY, "");
 
   if (!username && !isOpen) {
     setIsOpen(true);
