@@ -27,31 +27,31 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
     }: Props,
     ref,
   ) => {
-    const getColor = () => {
-      switch (color) {
-        case "primary":
-          return "amber-500";
+    const backgroundColor = {
+      primary: "bg-amber-500",
+      text: "bg-white",
+    };
 
-        case "text":
-          return "black";
-      }
+    const textColor = {
+      primary: "text-amber-500",
+      text: "text-black",
+    };
+
+    const borderColor = {
+      primary: "border-amber-500",
+      text: "border-none",
     };
 
     const buttonStyle = () => {
       switch (variant) {
         case "contained":
-          return [`bg-${getColor()}`, "text-cyan-50"];
+          return [backgroundColor[color], "text-cyan-50"];
 
         case "outlined":
-          return [
-            "bg-white",
-            `text-${getColor()}`,
-            "border-2",
-            `border-${getColor()}`,
-          ];
+          return ["bg-white", textColor[color], "border-2", borderColor[color]];
 
         case "text":
-          return [`text-${getColor()}`];
+          return [textColor[color]];
       }
     };
 
