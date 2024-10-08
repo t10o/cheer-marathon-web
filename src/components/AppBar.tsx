@@ -37,6 +37,7 @@ export const AppBar = () => {
           <Button
             className={clsx("pr-0")}
             variant="text"
+            color="text"
             label="ユーザー名変更"
             icon={faUser}
             onClick={handleClick}

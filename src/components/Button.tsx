@@ -5,24 +5,53 @@ import { ButtonHTMLAttributes, forwardRef } from "react";
 
 import { Spacer } from "@/components/Spacer";
 
+type ButtonColor = "primary" | "text";
+type ButtonVariant = "contained" | "outlined" | "text";
+
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   label?: string;
   icon?: IconDefinition;
-  variant?: "contained" | "outlined" | "text";
+  variant?: ButtonVariant;
+  color?: ButtonColor;
 }
 
 export const Button = forwardRef<HTMLButtonElement, Props>(
-  ({ className, label, icon, variant = "contained", ...props }: Props, ref) => {
+  (
+    {
+      className,
+      label,
+      icon,
+      variant = "contained",
+      color = "primary",
+      ...props
+    }: Props,
+    ref,
+  ) => {
+    const getColor = () => {
+      switch (color) {
+        case "primary":
+          return "amber-500";
+
+        case "text":
+          return "black";
+      }
+    };
+
     const buttonStyle = () => {
       switch (variant) {
         case "contained":
-          return ["bg-amber-500", "text-cyan-50"];
+          return [`bg-${getColor()}`, "text-cyan-50"];
 
         case "outlined":
-          return ["bg-white", "text-amber-500", "border-2", "border-amber-500"];
+          return [
+            "bg-white",
+            `text-${getColor()}`,
+            "border-2",
+            `border-${getColor()}`,
+          ];
 
         case "text":
-          return ["text-amber-500"];
+          return [`text-${getColor()}`];
       }
     };
 
@@ -35,7 +64,7 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
           "rounded",
           "px-4",
           "h-12",
-          "font-bold",
+          color !== "text" && variant !== "text" && "font-bold",
           ...buttonStyle(),
           props.disabled && ["opacity-50", "cursor-not-allowed"],
         )}
