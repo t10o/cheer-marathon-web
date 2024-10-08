@@ -32,6 +32,7 @@ export const AppBar = () => {
         <div>ロゴ</div>
 
         <Button
+          className={clsx("pr-0")}
           variant="text"
           label="ユーザー名変更"
           icon={faUser}
