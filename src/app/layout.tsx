@@ -2,6 +2,7 @@ import "./globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "react-toastify/dist/ReactToastify.css";
 
+import { GoogleTagManager } from "@next/third-parties/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import clsx from "clsx";
@@ -43,6 +44,10 @@ export default function RootLayout({
           {children}
         </main>
       </body>
+
+      {!!process.env.GOOGLE_ANALYTICS_ID && (
+        <GoogleTagManager gtmId={process.env.GOOGLE_ANALYTICS_ID} />
+      )}
     </html>
   );
 }
