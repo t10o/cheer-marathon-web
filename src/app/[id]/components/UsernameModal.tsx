@@ -60,7 +60,7 @@ export const UsernameModal = ({ isOpen, canClose = false, onClose }: Props) => {
           <label id="username">ユーザー名</label>
           <Input
             id="username"
-            className={clsx("w-full")}
+            className={clsx("w-full", "max-w-60")}
             value={username || ""}
             onChange={handleChange}
           />
