@@ -16,7 +16,7 @@ export const useRunData = (id: string) => {
         if (doc.exists()) {
           setRunData(doc.data() as Run);
         } else {
-          console.log("指定されたランデータが存在しません");
+          throw Error("指定されたランデータが存在しません");
         }
       },
       (error) => {

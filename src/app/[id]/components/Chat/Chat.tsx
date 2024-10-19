@@ -60,15 +60,8 @@ export const Chat = ({ id, isMobile, messages, fcmToken, username }: Props) => {
   };
 
   return (
-    <div
-      className={clsx(
-        isMobile ? "h-3/5" : "h-full",
-        isMobile ? "w-full" : "min-w-96",
-        "p-4",
-        "relative",
-        "pb-20",
-      )}
-    >
+    // タブ分高さ引く。もっといいやり方あれば
+    <div className={clsx("h-[calc(100%_-_60px)]")}>
       <ChatList>
         {messages?.map((message) => {
           return (
@@ -76,6 +69,7 @@ export const Chat = ({ id, isMobile, messages, fcmToken, username }: Props) => {
               key={JSON.stringify(message)}
               name={message.name}
               message={message.message}
+              isMobile={isMobile}
             />
           );
         })}

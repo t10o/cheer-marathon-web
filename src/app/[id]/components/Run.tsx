@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
-import { Chat } from "@/app/[id]/components/Chat";
+import { Content } from "@/app/[id]/components/Content";
 import { UsernameModal } from "@/app/[id]/components/UsernameModal";
 import { Map } from "@/components/Map";
 import { USERNAME_KEY } from "@/constants";
@@ -73,11 +73,10 @@ export const Run = () => {
         center={center}
       />
 
-      <Chat
+      <Content
         id={id!}
         isMobile={isMobile}
-        messages={runData.messages}
-        fcmToken={runData.fcmToken}
+        runData={runData}
         username={username}
       />
 
