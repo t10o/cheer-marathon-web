@@ -3,21 +3,22 @@
 import { useJsApiLoader } from "@react-google-maps/api";
 import clsx from "clsx";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { Content } from "@/app/[id]/components/Content";
 import { UsernameModal } from "@/app/[id]/components/UsernameModal";
-import { Map } from "@/components/Map";
+import { Map, Methods } from "@/components/Map";
 import { USERNAME_KEY } from "@/constants";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useRunData } from "@/hooks/useRunData";
+import { Location } from "@/models/run";
 
 export const Run = () => {
   const { id } = useParams<{ id: string }>();
 
   const { runData } = useRunData(id);
-
+  const { isMobile } = useIsMobile();
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY!,
@@ -25,11 +26,9 @@ export const Run = () => {
     language: "ja",
   });
 
-  const { isMobile } = useIsMobile();
-
   const [isOpen, setIsOpen] = useState(false);
-
   const [username] = useLocalStorage(USERNAME_KEY, "");
+  const mapRef = useRef<Methods | null>(null);
 
   if (!username && !isOpen) {
     setIsOpen(true);
@@ -54,6 +53,11 @@ export const Run = () => {
     setIsOpen(false);
   };
 
+  const handlePhotoClick = (location: Location, cb: () => void) => {
+    mapRef.current?.panTo({ lat: location.latitude, lng: location.longitude });
+    cb();
+  };
+
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
@@ -68,6 +72,7 @@ export const Run = () => {
       )}
     >
       <Map
+        ref={mapRef}
         containerStyle={{ width: "100%", height: isMobile ? "40%" : "100%" }}
         path={path}
         center={center}
@@ -78,6 +83,7 @@ export const Run = () => {
         isMobile={isMobile}
         runData={runData}
         username={username}
+        onPhotoClick={handlePhotoClick}
       />
 
       <UsernameModal isOpen={isOpen} onClose={handleClose} />

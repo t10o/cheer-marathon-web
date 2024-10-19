@@ -11,13 +11,13 @@ export interface Run {
   status: Status;
 }
 
-interface Photo {
+export interface Photo {
   location: Location;
   photoUrl: string;
   timestamp: string;
 }
 
-interface Location {
+export interface Location {
   latitude: number;
   longitude: number;
 }

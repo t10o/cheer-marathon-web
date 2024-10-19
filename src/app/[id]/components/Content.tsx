@@ -5,16 +5,23 @@ import clsx from "clsx";
 import { Chat } from "@/app/[id]/components/Chat";
 import { Photo } from "@/app/[id]/components/Photo/Photo";
 import { Tab, TabItem } from "@/components/Tab";
-import { Run } from "@/models/run";
+import { Location, Run } from "@/models/run";
 
 interface Props {
   id: string;
   isMobile: boolean;
   runData: Run;
   username: string | null;
+  onPhotoClick: (location: Location, cb: () => void) => void;
 }
 
-export const Content = ({ id, isMobile, runData, username }: Props) => {
+export const Content = ({
+  id,
+  isMobile,
+  runData,
+  username,
+  onPhotoClick,
+}: Props) => {
   return (
     <div
       className={clsx(
@@ -54,7 +61,7 @@ export const Content = ({ id, isMobile, runData, username }: Props) => {
             </span>
           }
         >
-          <Photo />
+          <Photo photos={runData.photos} onPhotoClick={onPhotoClick} />
         </TabItem>
       </Tab>
     </div>
