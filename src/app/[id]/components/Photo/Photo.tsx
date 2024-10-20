@@ -10,7 +10,7 @@ interface Props {
 export const Photo = ({ photos, onPhotoClick }: Props) => {
   return (
     <>
-      <div className={clsx("h-full", "overflow-y-scroll")}>
+      <div className={clsx("h-full", "w-full", "overflow-y-scroll")}>
         <div className={clsx("flex", "flex-wrap")}>
           {photos.map((photo, index) => {
             return (

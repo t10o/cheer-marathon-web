@@ -26,7 +26,7 @@ export const Content = ({
     <div
       className={clsx(
         isMobile ? "h-3/5" : "h-full",
-        isMobile ? "w-full" : "min-w-96",
+        isMobile ? "w-full" : ["min-w-96", "max-w-96"],
         "p-4",
         "pt-0",
         "relative",
