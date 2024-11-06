@@ -22,9 +22,12 @@ interface Props {
 
 export const Chat = ({ id, isMobile, messages, fcmToken, username }: Props) => {
   const [messageState, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    setLoading(true);
 
     const message = {
       name: username!,
@@ -49,6 +52,8 @@ export const Chat = ({ id, isMobile, messages, fcmToken, username }: Props) => {
     });
 
     await sendPushNotification(fcmToken, message.name, message.message);
+
+    setLoading(false);
 
     toast.success("メッセージを送信しました");
 
@@ -83,6 +88,7 @@ export const Chat = ({ id, isMobile, messages, fcmToken, username }: Props) => {
           <Input
             className={clsx("grow", "min-w-0")}
             value={messageState}
+            disabled={loading}
             onChange={handleChange}
           />
 
@@ -91,7 +97,7 @@ export const Chat = ({ id, isMobile, messages, fcmToken, username }: Props) => {
           <Button
             className={clsx("min-w-24")}
             type="submit"
-            disabled={!username}
+            disabled={!username || loading}
             label="送信"
             icon={faRocket}
           />
