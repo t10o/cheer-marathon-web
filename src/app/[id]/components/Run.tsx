@@ -41,7 +41,13 @@ export const Run = () => {
     : [];
 
   if (!runData || runData?.route.length <= 0) {
-    return <div>ランニングが開始されたら画面が表示されます</div>;
+    return (
+      <div
+        className={clsx("w-full", "h-full", "justify-center", "items-center")}
+      >
+        <p>11月10日（日）8:20 スタート</p>
+      </div>
+    );
   }
 
   const center = {
