@@ -43,7 +43,13 @@ export const Run = () => {
   if (!runData || runData?.route.length <= 0) {
     return (
       <div
-        className={clsx("w-full", "h-full", "justify-center", "items-center")}
+        className={clsx(
+          "w-full",
+          "h-full",
+          "justify-center",
+          "items-center",
+          "flex",
+        )}
       >
         <p>11月10日（日）8:20 スタート</p>
       </div>
