@@ -14,13 +14,21 @@ import { Message } from "@/models/run";
 
 interface Props {
   id: string;
+  isCompleted: boolean;
   isMobile: boolean;
   messages: Message[];
   fcmToken: string;
   username: string | null;
 }
 
-export const Chat = ({ id, isMobile, messages, fcmToken, username }: Props) => {
+export const Chat = ({
+  id,
+  isMobile,
+  isCompleted,
+  messages,
+  fcmToken,
+  username,
+}: Props) => {
   const [messageState, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -67,6 +75,22 @@ export const Chat = ({ id, isMobile, messages, fcmToken, username }: Props) => {
   return (
     // タブ分高さ引く。もっといいやり方あれば
     <div className={clsx("h-[calc(100%_-_60px)]")}>
+      {isCompleted && (
+        <div
+          className={clsx(
+            "flex",
+            "justify-center",
+            "items-center",
+            "absolute",
+            "w-full",
+            "bg-white",
+            "p-1",
+          )}
+        >
+          🎉 ラン終了！お疲れ様でした！！ 🎉
+        </div>
+      )}
+
       <ChatList>
         {messages?.map((message) => {
           return (

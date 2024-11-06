@@ -45,6 +45,7 @@ export const Content = ({
         >
           <Chat
             id={id!}
+            isCompleted={runData.status === "completed"}
             isMobile={isMobile}
             messages={runData.messages}
             fcmToken={runData.fcmToken}

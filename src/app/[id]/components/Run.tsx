@@ -83,24 +83,6 @@ export const Run = () => {
         isMobile ? "flex-col" : "flex-row",
       )}
     >
-      {runData.status === "completed" && !isMobile && (
-        <div
-          className={clsx(
-            "absolute",
-            "top-3",
-            "left-0",
-            "z-10",
-            "w-full",
-            "flex",
-            "justify-center",
-            "items-center",
-            "font-bold",
-          )}
-        >
-          🎉 ラン終了！お疲れ様でした！！！ 🎉
-        </div>
-      )}
-
       <Map
         ref={mapRef}
         containerStyle={{ width: "100%", height: isMobile ? "40%" : "100%" }}
