@@ -14,7 +14,7 @@ export async function sendPushNotification(
     notification: {
       channelId: "cheer",
     },
-    ttl: 4500,
+    ttl: 0,
   };
 
   const notificationMessage = {
