@@ -4,7 +4,6 @@ import { arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 
-import { sendPushNotification } from "@/actions/pushNotification";
 import { ChatList, ChatMessage } from "@/app/[id]/components/Chat";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
@@ -19,6 +18,11 @@ interface Props {
   messages: Message[];
   fcmToken: string;
   username: string | null;
+  sendPushNotification: (
+    fcmToken: string,
+    name: string,
+    message: string,
+  ) => Promise<void>;
 }
 
 export const Chat = ({
@@ -28,6 +32,7 @@ export const Chat = ({
   messages,
   fcmToken,
   username,
+  sendPushNotification,
 }: Props) => {
   const [messageState, setMessage] = useState("");
   const [loading, setLoading] = useState(false);

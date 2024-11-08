@@ -14,7 +14,15 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useRunData } from "@/hooks/useRunData";
 import { Location } from "@/models/run";
 
-export const Run = () => {
+interface Props {
+  sendPushNotification: (
+    fcmToken: string,
+    name: string,
+    message: string,
+  ) => Promise<void>;
+}
+
+export const Run = ({ sendPushNotification }: Props) => {
   const { id } = useParams<{ id: string }>();
 
   const { runData } = useRunData(id);
@@ -95,6 +103,7 @@ export const Run = () => {
         isMobile={isMobile}
         runData={runData}
         username={username}
+        sendPushNotification={sendPushNotification}
         onPhotoClick={handlePhotoClick}
       />
 

@@ -12,6 +12,11 @@ interface Props {
   isMobile: boolean;
   runData: Run;
   username: string | null;
+  sendPushNotification: (
+    fcmToken: string,
+    name: string,
+    message: string,
+  ) => Promise<void>;
   onPhotoClick: (location: Location, cb: () => void) => void;
 }
 
@@ -20,6 +25,7 @@ export const Content = ({
   isMobile,
   runData,
   username,
+  sendPushNotification,
   onPhotoClick,
 }: Props) => {
   return (
@@ -50,6 +56,7 @@ export const Content = ({
             messages={runData.messages}
             fcmToken={runData.fcmToken}
             username={username}
+            sendPushNotification={sendPushNotification}
           />
         </TabItem>
 

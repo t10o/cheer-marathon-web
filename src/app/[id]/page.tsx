@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 
+import { sendPushNotification } from "@/actions/pushNotification";
 import { Run } from "@/app/[id]/components/Run";
 
 export const metadata: Metadata = {
@@ -9,5 +10,5 @@ export const metadata: Metadata = {
 };
 
 export default function RunPage() {
-  return <Run />;
+  return <Run sendPushNotification={sendPushNotification} />;
 }
