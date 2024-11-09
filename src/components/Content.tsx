@@ -2,21 +2,17 @@ import { faBullhorn, faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 
-import { Chat } from "@/app/[id]/components/Chat";
-import { Photo } from "@/app/[id]/components/Photo/Photo";
-import { Tab, TabItem } from "@/components/Tab";
-import { Location, Run } from "@/models/run";
+import { Location } from "../models/run.ts";
+import { Run } from "../models/run.tsx";
+import { Chat } from "./Chat";
+import { Photo } from "./Photo/Photo.tsx";
+import { Tab, TabItem } from "./Tab";
 
 interface Props {
   id: string;
   isMobile: boolean;
   runData: Run;
   username: string | null;
-  sendPushNotification: (
-    fcmToken: string,
-    name: string,
-    message: string,
-  ) => Promise<void>;
   onPhotoClick: (location: Location, cb: () => void) => void;
 }
 
@@ -25,7 +21,6 @@ export const Content = ({
   isMobile,
   runData,
   username,
-  sendPushNotification,
   onPhotoClick,
 }: Props) => {
   return (
@@ -56,7 +51,6 @@ export const Content = ({
             messages={runData.messages}
             fcmToken={runData.fcmToken}
             username={username}
-            sendPushNotification={sendPushNotification}
           />
         </TabItem>
 

@@ -1,35 +1,25 @@
-"use client";
-
 import { useJsApiLoader } from "@react-google-maps/api";
 import clsx from "clsx";
-import { useParams } from "next/navigation";
 import { useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import { Content } from "@/app/[id]/components/Content";
-import { UsernameModal } from "@/app/[id]/components/UsernameModal";
-import { Map, Methods } from "@/components/Map";
-import { USERNAME_KEY } from "@/constants";
-import { useIsMobile } from "@/hooks/useIsMobile";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { useRunData } from "@/hooks/useRunData";
-import { Location } from "@/models/run";
+import { Content } from "../components/Content.tsx";
+import { Map, Methods } from "../components/Map";
+import { UsernameModal } from "../components/UsernameModal.tsx";
+import { USERNAME_KEY } from "../constants";
+import { useIsMobile } from "../hooks/useIsMobile";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useRunData } from "../hooks/useRunData";
+import { Location } from "../models/run.tsx";
 
-interface Props {
-  sendPushNotification: (
-    fcmToken: string,
-    name: string,
-    message: string,
-  ) => Promise<void>;
-}
-
-export const Run = ({ sendPushNotification }: Props) => {
+export const Run = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { runData } = useRunData(id);
+  const { runData } = useRunData(id!);
   const { isMobile } = useIsMobile();
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY!,
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY!,
     region: "JP",
     language: "ja",
   });
@@ -103,7 +93,6 @@ export const Run = ({ sendPushNotification }: Props) => {
         isMobile={isMobile}
         runData={runData}
         username={username}
-        sendPushNotification={sendPushNotification}
         onPhotoClick={handlePhotoClick}
       />
 

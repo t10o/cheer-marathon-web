@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { createContext, ReactElement, useMemo, useState } from "react";
 
-import { TabItem, TabItemProps } from "@/components/Tab/TabItem";
+import { TabItem, TabItemProps } from "./TabItem.tsx";
 
 export type TabKey = string | number;
 export type TabLabel = string | number | ReactElement;
