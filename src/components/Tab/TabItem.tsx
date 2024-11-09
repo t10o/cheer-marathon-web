@@ -1,6 +1,6 @@
 import { ReactNode, useContext } from "react";
 
-import { TabContext, TabKey, TabLabel } from "@/components/Tab/Tab";
+import { TabContext, TabKey, TabLabel } from "./Tab.tsx";
 
 export interface TabItemProps {
   tabKey: TabKey;

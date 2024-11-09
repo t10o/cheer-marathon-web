@@ -4,12 +4,14 @@ import { arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 
-import { ChatList, ChatMessage } from "@/app/[id]/components/Chat";
-import { Button } from "@/components/Button";
-import { Input } from "@/components/Input";
-import { Spacer } from "@/components/Spacer";
-import { db } from "@/libs/firebase";
-import { Message } from "@/models/run";
+import { pushNotification } from "../../apis/pushNotification.ts";
+import { db } from "../../libs/firebase.ts";
+import { Message } from "../../models/run.tsx";
+import { Button } from "../Button.tsx";
+import { Input } from "../Input.tsx";
+import { Spacer } from "../Spacer.tsx";
+import { ChatList } from "./ChatList.tsx";
+import { ChatMessage } from "./ChatMessage.tsx";
 
 interface Props {
   id: string;
@@ -18,11 +20,6 @@ interface Props {
   messages: Message[];
   fcmToken: string;
   username: string | null;
-  sendPushNotification: (
-    fcmToken: string,
-    name: string,
-    message: string,
-  ) => Promise<void>;
 }
 
 export const Chat = ({
@@ -32,7 +29,6 @@ export const Chat = ({
   messages,
   fcmToken,
   username,
-  sendPushNotification,
 }: Props) => {
   const [messageState, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -64,7 +60,7 @@ export const Chat = ({
       ["messages"]: arrayUnion(message),
     });
 
-    await sendPushNotification(fcmToken, message.name, message.message);
+    await pushNotification(fcmToken, message.name, message.message);
 
     setLoading(false);
 

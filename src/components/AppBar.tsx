@@ -1,15 +1,11 @@
-"use client";
-
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import clsx from "clsx";
-import Image from "next/image";
-import { useParams } from "next/navigation";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
-import { UsernameModal } from "@/app/[id]/components/UsernameModal";
-import { Button } from "@/components/Button";
-
-import logo from "../app/logo.png";
+import logo from "../assets/logo.png";
+import { Button } from "./Button.tsx";
+import { UsernameModal } from "./UsernameModal.tsx";
 
 export const AppBar = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,7 +30,7 @@ export const AppBar = () => {
           "p-4",
         )}
       >
-        <Image src={logo} alt="ロゴ" width={180} height={38} />
+        <img src={logo} alt="ロゴ" width={180} height={38} />
 
         {id && (
           <Button

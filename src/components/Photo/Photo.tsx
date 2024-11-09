@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-import { Location, Photo as IPhoto } from "@/models/run";
+import { Location, Photo as IPhoto } from "../../models/run.ts";
 
 interface Props {
   photos: IPhoto[];

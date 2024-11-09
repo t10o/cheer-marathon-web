@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import clsx from "clsx";
 import { ButtonHTMLAttributes, forwardRef } from "react";
 
-import { Spacer } from "@/components/Spacer";
+import { Spacer } from "./Spacer.tsx";
 
 type ButtonColor = "primary" | "text";
 type ButtonVariant = "contained" | "outlined" | "text";

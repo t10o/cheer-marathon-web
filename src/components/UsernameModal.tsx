@@ -2,12 +2,12 @@ import clsx from "clsx";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 
-import { Button } from "@/components/Button";
-import { Input } from "@/components/Input";
-import { Modal } from "@/components/Modal";
-import { Spacer } from "@/components/Spacer";
-import { USERNAME_KEY } from "@/constants";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { USERNAME_KEY } from "../constants";
+import { useLocalStorage } from "../hooks/useLocalStorage.ts";
+import { Button } from "./Button.tsx";
+import { Input } from "./Input.tsx";
+import { Modal } from "./Modal.tsx";
+import { Spacer } from "./Spacer.tsx";
 
 interface Props {
   isOpen: boolean;
