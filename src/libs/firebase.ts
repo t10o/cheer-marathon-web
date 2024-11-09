@@ -1,5 +1,6 @@
 import { getApps, initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getFunctions } from "firebase/functions";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -13,3 +14,4 @@ const firebaseConfig = {
 
 const app = getApps()[0] ?? initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+export const functions = getFunctions(app, "asia-northeast1");

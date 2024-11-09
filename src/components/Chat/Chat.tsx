@@ -1,11 +1,11 @@
 import { faRocket } from "@fortawesome/free-solid-svg-icons";
 import clsx from "clsx";
 import { arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
+import { httpsCallable } from "firebase/functions";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 
-import { pushNotification } from "../../apis/pushNotification.ts";
-import { db } from "../../libs/firebase.ts";
+import { db, functions } from "../../libs/firebase.ts";
 import { Message } from "../../models/run.tsx";
 import { Button } from "../Button.tsx";
 import { Input } from "../Input.tsx";
@@ -32,6 +32,8 @@ export const Chat = ({
 }: Props) => {
   const [messageState, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const sendPushNotification = httpsCallable(functions, "sendPushNotification");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -60,7 +62,15 @@ export const Chat = ({
       ["messages"]: arrayUnion(message),
     });
 
-    await pushNotification(fcmToken, message.name, message.message);
+    sendPushNotification({
+      fcmToken,
+      name: message.name,
+      message: message.message,
+    }).catch(() => {
+      toast.error("プッシュ通知の送信に失敗しました");
+      setLoading(false);
+      return;
+    });
 
     setLoading(false);
 
